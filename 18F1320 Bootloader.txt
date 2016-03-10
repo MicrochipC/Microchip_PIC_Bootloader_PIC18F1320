@@ -1,0 +1,17 @@
+This is a bootloader I wrote based on Shane Tolmie's 16F877 bootloader.  When I first started this project, the 18 series bootloaders left a little to be desired.  There are better 18 series bootloaders out there now.  Maybe this code could help others with their projects.
+
+If you are familiar with the 16 seris bootloader, this one should be easy to understand. The firmware resides in the top 512 bytes of program memory.  Data is sent to the PIC exactly like the 16 seris bootloader except for the fact that it has one more address byte to accomodate the added memory on the newer 18 seris PICs.  
+
+It is important to note that the 18F1320 Datasheet is very wrong in many places.  It took a while to find their mistakes and fix them.  The flash programming code in the datasheet will NOT work as it is written.  
+
+Another important thing to notice is that a memory location cannot be written to unless it is erased first.  This is why the code is slightly more complicated than the 16 series bootloader.  
+After the firmware collects 64 bytes of data to be written, it executes an Erase Block command to erase that 64 byte block.  Then it saves the new information 8 bytes at a time.
+
+This bootloader will not program the config bits, data memory, or the ID locations.  It was just intended to be a tool for loading program memory.
+
+
+Happy Coding!
+Dan Jones
+dan.jones@dionysusdesign.com
+ 
+
